@@ -38,7 +38,6 @@
   <Project Path="Unity.PerformanceTesting.csproj" />
   <Project Path="Unity.2D.Tilemap.Extras.Editor.csproj" />
   <Project Path="Unity.InputSystem.ForUI.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Unity.TextMeshPro.csproj" />
   <Project Path="Unity.TextMeshPro.Editor.csproj" />
   <Project Path="PsdPlugin.csproj" />
@@ -64,6 +63,7 @@
   <Project Path="Unity.VisualScripting.SettingsProvider.Editor.csproj" />
   <Project Path="UnityEditor.UI.Analytics.csproj" />
   <Project Path="Unity.2D.Common.Runtime.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Unity.InputSystem.TestFramework.csproj" />
   <Project Path="Unity.ShaderGraph.Utilities.csproj" />
   <Project Path="Unity.VisualScripting.Shared.Editor.csproj" />
@@ -101,7 +101,6 @@
   <Project Path="Unity.VisualScripting.Flow.Player.csproj" />
   <Project Path="Unity.PerformanceTesting.Player.csproj" />
   <Project Path="Unity.InputSystem.ForUI.Player.csproj" />
-  <Project Path="Assembly-CSharp.Player.csproj" />
   <Project Path="Unity.TextMeshPro.Player.csproj" />
   <Project Path="Unity.InternalAPIEngineBridge.001.Player.csproj" />
   <Project Path="Unity.VisualScripting.State.Player.csproj" />
@@ -109,6 +108,7 @@
   <Project Path="Unity.2D.Tilemap.Extras.Player.csproj" />
   <Project Path="Unity.2D.Animation.Runtime.Player.csproj" />
   <Project Path="Unity.2D.Common.Runtime.Player.csproj" />
+  <Project Path="Assembly-CSharp.Player.csproj" />
   <Project Path="Unity.InputSystem.TestFramework.Player.csproj" />
   <Project Path="Unity.RenderPipeline.Universal.ShaderLibrary.Player.csproj" />
   <Project Path="Unity.InternalAPIEngineBridge.004.Player.csproj" />

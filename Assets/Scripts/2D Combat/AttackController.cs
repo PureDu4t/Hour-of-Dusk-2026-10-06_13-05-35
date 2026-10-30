@@ -13,13 +13,28 @@ public class AttackController : MonoBehaviour
     [SerializeField] private int _enemyMaxHP = 18;
     [SerializeField] AudioManager _audioManager;
     [SerializeField] CombatTurnController _turnController;
+    [SerializeField] DefenseController _defenseController;
     [SerializeField]private TMP_Text _enemyHealthBar;
     private int _enemyHP;
     private bool _deathHandled = false;
+    private int _powerUpBonus = 0;
 
-    private void UpdateHealthDisplay()
+    public int PowerUpBonus
     {
-        _enemyHealthBar.text = "HP: " + _enemyHP.ToString();
+        get
+        {
+            return _powerUpBonus;
+        }
+
+        set
+        {
+            _powerUpBonus = value;
+        }
+    }
+
+    public void UpdateHealthDisplay()
+    {
+        _enemyHealthBar.text = "HP: " + _enemyHP.ToString() + "\nATK Bonus = " + _turnController.EnemyAttackBonus;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -52,6 +67,19 @@ public class AttackController : MonoBehaviour
             GetComponent<AttackGridSpawner>().StartAttack();
         }
 
+        if (Input.GetKeyDown(KeyCode.Alpha2)&&_turnController.GetCurrentState()==CombatTurnController.CombatState.PlayerChoosing)
+        {
+            _audioManager.PlayUIStinger();
+            if (_deathHandled)
+            {
+            return;
+            }
+
+            Debug.Log("Defending");
+            _turnController.SetCurrentState(CombatTurnController.CombatState.PlayerDefending);
+            _turnController.BeginEnemyTurn();
+        }
+
         if (Input.GetKeyDown(KeyCode.Space)&&_turnController.GetCurrentState()==CombatTurnController.CombatState.PlayerAttacking)
         {
             if (_deathHandled)
@@ -76,7 +104,7 @@ public class AttackController : MonoBehaviour
 
             if (hitRegistered)
             {
-                int damage = _ATK + _attackModifier;
+                int damage = _ATK + _attackModifier + _powerUpBonus;
 
                 if (isWeakPoint)
                 {

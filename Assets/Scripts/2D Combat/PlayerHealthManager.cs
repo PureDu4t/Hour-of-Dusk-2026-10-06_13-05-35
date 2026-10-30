@@ -3,17 +3,19 @@ using System.Collections;
 using TMPro;
 public class PlayerHealthManager : MonoBehaviour
 {
+    public int CurrentHP => _currentHP;
     [SerializeField]private int _maxHP;
     [SerializeField]private AttackGridSpawner _attackGridSpawner;
     [SerializeField]private AudioManager _audioManager;
+    [SerializeField]private AttackController _attackController;
     [SerializeField]private TMP_Text _playerHealthBar;
     private SpriteRenderer _playerSprite;
     private int _currentHP;
     private Color _originalColor;
 
-    private void UpdateHealthDisplay()
+    public void UpdateHealthDisplay()
     {
-        _playerHealthBar.text = "HP: " + _currentHP.ToString();
+        _playerHealthBar.text = "HP: " + _currentHP.ToString() + "\nATK Bonus: " + _attackController.PowerUpBonus;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

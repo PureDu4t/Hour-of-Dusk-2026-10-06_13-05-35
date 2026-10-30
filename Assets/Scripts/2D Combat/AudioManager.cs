@@ -1,13 +1,16 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField]private AudioSource _playerSource;
-    [SerializeField]private AudioSource _enemySource;
-    [SerializeField]private AudioSource _UISource;
-    [SerializeField]private AudioClip[] _pitchRecordings;
-    [SerializeField]private AudioClip[] _weakPoints;
+    [SerializeField] private AudioSource _playerSource;
+    [SerializeField] private AudioSource _enemySource;
+    [SerializeField] private AudioSource _UISource;
+    [SerializeField] private AudioSource _ttsSource;
+    [SerializeField] private AudioSource _defendSource;
+    [SerializeField] private AudioClip[] _pitchRecordings;
+    [SerializeField] private AudioClip[] _weakPoints;
     [SerializeField] private AudioClip _attackSlash;
     [SerializeField] private AudioClip _criticalSlash;
     [SerializeField] private AudioClip _attackHit;
@@ -19,8 +22,29 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip _enemyDeath;
     [SerializeField] private AudioClip[] _playerHurt;
     [SerializeField] private AudioClip _playerDeath;
+    [SerializeField] private AudioClip _defendDrumLoop;
+    [SerializeField] private AudioClip _blockPercussion;
+    [SerializeField] private AudioClip _blockSuccess;
+    [SerializeField] private MidiSample[] _midiSamples;
+    [SerializeField] private AudioClip _playerBuff;
+    [SerializeField] private AudioClip _enemyBuff;
+    [SerializeField] private AudioClip _enemyIntentAttack;
+    [SerializeField] private AudioClip _enemyIntentBuff;
+    public static AudioManager Instance;
 
-
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,6 +55,24 @@ public class AudioManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    [System.Serializable] private class MidiSample
+    {
+        public int MidiNote;
+        public AudioClip Clip;
+    }
+
+    public AudioClip GetMidiClip(int MidiNote)
+    {
+        foreach (MidiSample sample in _midiSamples)
+        {
+            if (sample.MidiNote == MidiNote)
+            {
+                return sample.Clip;
+            }
+        }
+        return null;
     }
 
     public void PlayPitch(int _pitchNumber)
@@ -152,5 +194,48 @@ public class AudioManager : MonoBehaviour
     {
         _playerSource.clip = _playerDeath;
         _playerSource.Play();
+    }
+
+    //Defend
+
+    public void PlayDefendDrums(double scheduledTime)
+    {
+        _defendSource.clip = _defendDrumLoop;
+        _defendSource.PlayScheduled(scheduledTime);
+    }
+
+    public void PlayBlockPercussion()
+    {
+        _defendSource.clip = _blockPercussion;
+        _defendSource.Play();
+    }
+
+    public void PlayBlockSuccess()
+    {
+        _UISource.clip = _blockSuccess;
+        _UISource.Play();
+    }
+
+    public void PlayPlayerBuff()
+    {
+        _playerSource.clip = _playerBuff;
+        _playerSource.Play();
+    }
+
+    public void PlayEnemyBuff()
+    {
+        _enemySource.clip = _enemyBuff;
+        _enemySource.Play();
+    }
+
+    public void PlayEnemyIntentAttack()
+    {
+        _ttsSource.clip = _enemyIntentAttack;
+        _ttsSource.Play();
+    }
+    public void PlayEnemyIntentBuff()
+    {
+        _ttsSource.clip = _enemyIntentBuff;
+        _ttsSource.Play();
     }
 }
